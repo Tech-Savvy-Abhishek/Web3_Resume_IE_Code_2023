@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
-import "./institute.sol";
+import "./institutes.sol";
 
 contract Web3Resume is IERC721, ERC721URIStorage, InstituteContract {
     address private _owner;
@@ -45,6 +45,45 @@ contract Web3Resume is IERC721, ERC721URIStorage, InstituteContract {
                 "}"
             )
         );
+    }
+
+    // already available in base class
+    // function tokenURI(uint256 tokenId) public view virtual override returns (string memory)
+
+    //overriding trasfer functions of ERC721
+
+    // this function is disabled since we don't want to allow transfers
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId) public virtual override(ERC721, IERC721) {
+        revert("Transfer not supported for self validating token.");
+    }
+
+    // this function is disabled since we don't want to allow transfers
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes memory _data)
+        public
+        virtual
+        override(ERC721, IERC721)
+    {
+        revert("Transfer not supported for self validating token.");
+    }
+
+    // this function is disabled since we don't want to allow transfers
+    function transferFrom(address _from, address _to, uint256 _tokenId) public virtual override(ERC721, IERC721) {
+        revert("Transfer not supported for self validating token.");
+    }
+
+    // this function is disabled since we don't want to allow transfers
+    function approve(address _to, uint256 _tokenId) public virtual override(ERC721, IERC721) {
+        revert("Transfer not supported for self validating token.");
+    }
+
+    // this function is disabled since we don't want to allow transfers
+    function setApprovalForAll(address _operator, bool _approved) public virtual override(ERC721, IERC721) {
+        revert("Transfer not supported for self validating token.");
+    }
+
+    // this function is disabled since we don't want to allow transfers
+    function getApproved(uint256 _tokenId) public view override(ERC721, IERC721) returns (address) {
+        return address(0x0);
     }
 
     function mint(
